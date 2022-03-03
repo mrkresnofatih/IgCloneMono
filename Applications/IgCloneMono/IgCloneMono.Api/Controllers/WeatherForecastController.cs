@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using IgCloneMono.Api.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -34,6 +36,12 @@ namespace IgCloneMono.Api.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet("SampleError")]
+        public ResponsePayload<string> GetSampleError()
+        {
+            throw new FileNotFoundException();
         }
     }
 }

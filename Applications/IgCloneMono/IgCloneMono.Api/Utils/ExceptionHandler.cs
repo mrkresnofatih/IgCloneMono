@@ -1,6 +1,7 @@
 ﻿using System;
-using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using IgCloneMono.Api.Constants;
+using IgCloneMono.Api.Constants.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,7 @@ namespace IgCloneMono.Api.Utils
 {
     public static class ExceptionHandler
     {
+        [ExcludeFromCodeCoverage]
         public static void UseAppExceptionHandler(this IApplicationBuilder app)
         {
             app.UseExceptionHandler(appError =>
@@ -30,7 +32,9 @@ namespace IgCloneMono.Api.Utils
         {
             switch (exception)
             {
-                case FileNotFoundException:
+                case InvalidCredentialsException:
+                    return ErrorCodes.INVALID_CREDENTIALS;
+                case RecordNotFoundException:
                     return ErrorCodes.BAD_REQUEST;
                 default:
                     return ErrorCodes.UNHANDLED;

@@ -10,6 +10,9 @@ namespace IgCloneMono.Api.Repositories
         {
             services.AddScoped<PlayerDbRepository>();
             services.AddSingleton<PlayerAccessTokenRepository>();
+            services.AddScoped<ConnectionDbRepository>();
+            services.AddSingleton<FollowerListRedisRepository>();
+            services.AddSingleton<FollowingListRedisRepository>();
         }
     }
 }

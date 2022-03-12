@@ -9,7 +9,7 @@ namespace IgCloneMono.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController : ControllerBase, IAuthController
     {
         public AuthController(AuthService authService)
         {

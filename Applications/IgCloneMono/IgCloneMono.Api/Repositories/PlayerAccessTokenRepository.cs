@@ -18,7 +18,7 @@ namespace IgCloneMono.Api.Repositories
 
         protected override TimeSpan GetLifeTime()
         {
-            return TimeSpan.FromMinutes(2);
+            return TimeSpan.FromHours(2);
         }
 
         public async Task SaveOrExtendAccessToken(string id, string token)

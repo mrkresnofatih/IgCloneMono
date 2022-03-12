@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using IgCloneMono.Api.Constants.Exceptions;
@@ -8,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IgCloneMono.Api.Repositories
 {
-    public class PlayerDbRepository : IPlayerRepository
+    public class PlayerDbRepository : IPlayerDbRepository
     {
         public PlayerDbRepository(IgCloneDbContext igCloneDbContext, IMapper mapper)
         {
@@ -51,6 +53,14 @@ namespace IgCloneMono.Api.Repositories
             }
 
             return foundPlayer;
+        }
+
+        public async Task<Dictionary<long, PlayerGetDto>> GetMany(List<long> playerIds)
+        {
+            return await _igCloneDbContext
+                .Players
+                .Where(p => playerIds.Contains(p.PlayerId))
+                .ToDictionaryAsync(p => p.PlayerId, p => _mapper.Map<PlayerGetDto>(p));
         }
     }
 }

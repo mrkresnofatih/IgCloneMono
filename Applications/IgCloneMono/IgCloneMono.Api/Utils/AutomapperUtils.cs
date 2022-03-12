@@ -24,6 +24,7 @@ namespace IgCloneMono.Api.Utils
     {
         public AutomapperProfile()
         {
+            // Player
             CreateMap<Player, PlayerGetDto>().ReverseMap();
             CreateMap<Player, PlayerCreateUpdateDto>().ReverseMap();
         }

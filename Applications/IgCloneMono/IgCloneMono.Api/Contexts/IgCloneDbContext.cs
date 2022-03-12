@@ -14,6 +14,8 @@ namespace IgCloneMono.Api.Contexts
         }
 
         public DbSet<Player> Players { get; set; }
+        
+        public DbSet<Connection> Connections { get; set; }
     }
 
     [ExcludeFromCodeCoverage]

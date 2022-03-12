@@ -34,6 +34,7 @@ namespace IgCloneMono.Api.Utils
             {
                 case InvalidCredentialsException:
                     return ErrorCodes.INVALID_CREDENTIALS;
+                case BadRequestException:
                 case RecordNotFoundException:
                     return ErrorCodes.BAD_REQUEST;
                 default:

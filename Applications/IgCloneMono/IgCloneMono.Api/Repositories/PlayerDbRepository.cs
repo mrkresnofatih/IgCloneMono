@@ -55,6 +55,13 @@ namespace IgCloneMono.Api.Repositories
             return foundPlayer;
         }
 
+        public async Task<Player> GetRawOneOrDefault(string username)
+        {
+            return await _igCloneDbContext
+                .Players
+                .SingleOrDefaultAsync(p => p.Username == username);
+        }
+
         public async Task<Dictionary<long, PlayerGetDto>> GetMany(List<long> playerIds)
         {
             return await _igCloneDbContext

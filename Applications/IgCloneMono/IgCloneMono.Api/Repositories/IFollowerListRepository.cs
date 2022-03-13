@@ -8,5 +8,9 @@ namespace IgCloneMono.Api.Repositories
         Task<Dictionary<long, bool>> GetCachedFollowerList(long playerId);
 
         Task StoreCacheFollowerList(Dictionary<long, bool> followerList, long playerId);
+
+        Task StoreOneToCacheFollowerList(long candidateId, long playerId);
+
+        Task RemoveOneFromCacheFollowerList(long candidateId, long playerId);
     }
 }

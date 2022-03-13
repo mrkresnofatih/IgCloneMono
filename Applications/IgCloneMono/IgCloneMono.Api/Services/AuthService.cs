@@ -43,6 +43,13 @@ namespace IgCloneMono.Api.Services
 
         public async Task<PlayerGetDto> Register(PlayerCreateUpdateDto playerCreateUpdateDto)
         {
+            var existingPlayerWithSameUsername =
+                await _playerDbRepository.GetRawOneOrDefault(playerCreateUpdateDto.Username);
+            if (existingPlayerWithSameUsername != null)
+            {
+                throw new UsernameTakenException();
+            }
+            
             var newPlayer = _mapper.Map<Player>(playerCreateUpdateDto);
             newPlayer.Banned = false;
             newPlayer.Password = _playerPasswordUtils.DoHash(playerCreateUpdateDto.Password);

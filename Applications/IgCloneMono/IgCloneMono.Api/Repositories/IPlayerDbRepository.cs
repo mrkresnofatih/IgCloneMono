@@ -13,5 +13,7 @@ namespace IgCloneMono.Api.Repositories
         Task<Dictionary<long, PlayerGetDto>> GetMany(List<long> playerIds);
 
         Task<Player> GetRawOneByUsername(string username);
+
+        Task<Player> GetRawOneOrDefault(string username);
     }
 }

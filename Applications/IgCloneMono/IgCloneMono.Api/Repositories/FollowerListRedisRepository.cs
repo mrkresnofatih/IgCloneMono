@@ -31,5 +31,21 @@ namespace IgCloneMono.Api.Repositories
         {
             await SaveById(playerId.ToString(), followerList);
         }
+
+        public async Task StoreOneToCacheFollowerList(long candidateId, long playerId)
+        {
+            var followerListFromRedis = await GetCachedFollowerList(playerId);
+            if (followerListFromRedis == null) return;
+            followerListFromRedis.Add(candidateId, true);
+            await StoreCacheFollowerList(followerListFromRedis, playerId);
+        }
+
+        public async Task RemoveOneFromCacheFollowerList(long candidateId, long playerId)
+        {
+            var followerListFromRedis = await GetCachedFollowerList(playerId);
+            if (followerListFromRedis == null) return;
+            followerListFromRedis.Remove(candidateId);
+            await StoreCacheFollowerList(followerListFromRedis, playerId);
+        }
     }
 }

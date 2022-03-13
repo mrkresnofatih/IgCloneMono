@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IgCloneMono.Api.Constants.Exceptions;
@@ -51,8 +50,16 @@ namespace IgCloneMono.Api.Services
                     FollowerId = playerId,
                     Deleted = false
                 };
+
+                await _followingListRedisRepository.StoreOneToCacheFollowingList(candidateId, playerId);
+                await _followerListRedisRepository.StoreOneToCacheFollowerList(playerId, candidateId);
                 
                 return await _connectionDbRepository.AddOne(connection);
+            }
+
+            if (!connectionFromDb.Deleted)
+            {
+                throw new BadRequestException();
             }
 
             return await _connectionDbRepository.UndeleteOneByConnectionId(connectionFromDb.ConnectionId);
@@ -77,6 +84,14 @@ namespace IgCloneMono.Api.Services
             {
                 throw new RecordNotFoundException();
             }
+
+            if (connectionFromDb.Deleted)
+            {
+                throw new BadRequestException();
+            }
+
+            await _followingListRedisRepository.RemoveOneFromCacheFollowingList(candidateId, playerId);
+            await _followerListRedisRepository.RemoveOneFromCacheFollowerList(playerId, candidateId);
 
             return await _connectionDbRepository.DeleteOneByConnectionId(connectionFromDb.ConnectionId);
         }

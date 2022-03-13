@@ -32,8 +32,11 @@ namespace IgCloneMono.Api.Utils
         {
             switch (exception)
             {
+                case UsernameTakenException:
+                    return ErrorCodes.USERNAME_TAKEN;
                 case InvalidCredentialsException:
                     return ErrorCodes.INVALID_CREDENTIALS;
+                case BadRequestException:
                 case RecordNotFoundException:
                     return ErrorCodes.BAD_REQUEST;
                 default:

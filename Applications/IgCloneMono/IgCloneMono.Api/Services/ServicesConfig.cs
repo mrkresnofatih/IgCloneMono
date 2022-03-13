@@ -9,6 +9,7 @@ namespace IgCloneMono.Api.Services
         public static void AddAppServices(this IServiceCollection services)
         {
             services.AddScoped<AuthService>();
+            services.AddScoped<ConnectionService>();
         }
     }
 }
